@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', ['uses' => 'GameController@play', 'as' => 'game.play']);
+Route::post('/get_minesweeper', ['uses' => 'GameController@get_minesweeper', 'as' => 'game.get_minesweeper']);
+Route::post('/select_coordinate', ['uses' => 'GameController@select_coordinate', 'as' => 'game.select_coordinate']);
