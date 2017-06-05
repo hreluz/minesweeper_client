@@ -7,7 +7,7 @@
             @for( $i = 0 ; $i < $x ; $i++)
                 <tr> 
                     @for( $j = 0; $j < $y ; $j++)
-                        <td  id="x{{$i}}y{{$j}}" class="cell_click locked" data-x="{{ $i }}" data-y="{{ $j }}">
+                        <td  id="x{{$i}}y{{$j}}" class="cell_click locked" data-flag="false" data-x="{{ $i }}" data-y="{{ $j }}">
                             &nbsp
                         </td>
                    @endfor

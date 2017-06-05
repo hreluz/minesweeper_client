@@ -58,11 +58,12 @@ class GameController extends Controller
 		$params = [ 'form_params' => [
 				        'x' => $request->get('x'),
 				        'y' => $request->get('y'),
-    			]];
+    				],
+    				'http_errors' => false
+    			];
 
 		$res = $this->client->request('POST', $url, $params);
-
-		return json_decode($res->getBody(), true);
+		return response()->json( json_decode($res->getBody(), true) , $res->getStatusCode()  );
 	}
 
 

@@ -1,5 +1,6 @@
 $(document).ready(function(){
 	var token = '';
+	let my_alert = new Alert('#notifications');
 
 	//When user selects a level
 	$(document).on('click', '.start_game', function(e){
@@ -20,10 +21,30 @@ $(document).ready(function(){
 		get_minesweeper(url,data);
 
 	});
+	
+	$(document).on("contextmenu", ".cell_click", function(e){
+		e.preventDefault();
+		let that = $(this);
+		let flag = that.data('flag');
+
+		if(flag){
+			that.data('flag', false);
+			that.removeClass('flag');
+		}else{
+			that.data('flag', true);
+			that.addClass('flag');
+		}
+	});
 
 	$(document).on('click', '.cell_click', function(e){
 		e.preventDefault();
 		let that = $(this);
+		let flag = that.data('flag');
+
+		if(flag){
+			return true;
+		}
+
 		let x = that.data('x');
 		let y = that.data('y');
 
@@ -44,9 +65,13 @@ $(document).ready(function(){
             	game_actions(response);
             },
             error: function(response) {
-                //$.each(response.responseJSON, function (key, value) {
-                //    alert_custom.error(value);
-                // });
+            	if(response.status == 500){
+					my_alert.error('Server Run out of memory. Please enter more number of mines',4000);
+            	}else{
+	                $.each(response.responseJSON, function (key, value) {
+	                    my_alert.error(value);
+	                });            		
+            	}
             }
         }); 
 	});
@@ -59,17 +84,28 @@ $(document).ready(function(){
 		let mines = 0;
 
 		if(level == 'beginner'){
-			x = 8;
-			y = 5;
+			x = 10;
+			y = 6;
 			mines = 5;
 		}else if(level == 'intermediate'){
-			x = 9;
-			y = 9;
-			mines = 10;
-		}else{
 			x = 15;
-			y = 15;
+			y = 9;
+			mines = 15;
+		}else if(level == 'advanced'){
+			x = 23;
+			y = 23;
 			mines = 25;
+		}else{
+			x = $('#number_rows').val();
+			y = $('#number_columns').val();
+			mines = $('#number_mines').val();
+
+			//Clean inputs
+			$('#number_rows').val('');
+			$('#number_columns').val('');
+			$('#number_mines').val('');
+
+			$('#myModal').modal('hide');
 		}
 
 		return { 'x': x , 'y': y, 'mines': mines };

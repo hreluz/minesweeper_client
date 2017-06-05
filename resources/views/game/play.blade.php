@@ -1,6 +1,5 @@
 @extends('layout')
 @section('content')
-<div class="container">
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -9,13 +8,15 @@
                     <a class="btn btn-warning start_game" href="#" data-level="beginner">Beginner</a>
                     <a class="btn btn-primary start_game" href="#" data-level="intermediate">Intermediate</a>
                     <a class="btn btn-danger start_game" href="#" data-level="advanced">Advanced</a>
-                    {{--<a class="btn btn-success start_game" href="#" data-level="custom">Custom</a>--}}
+                    <a class="btn btn-success" href="#" data-level="custom" data-toggle="modal" data-target="#myModal">Custom</a>
+                    <a class="btn btn-info" href="#" data-toggle="modal" data-target="#help">Help</a>
                 </div>
+                @include('game.custom')
+                @include('game.help')
                 <div id="minesweeper_grid"></div>
             </div>
         </div>
     </div>
-</div>
 
 {{-- Load Grid Game --}}
 {!! Form::open(['route' => ['game.get_minesweeper'], 'method' => 'POST','id'=>'form-get-minesweeper' ])!!}

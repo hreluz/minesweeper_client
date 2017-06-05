@@ -15,7 +15,8 @@
     <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
 
     <script src="{{ asset('js/vendor/jquery-2.2.4.js') }}"></script>
-
+    <script src="{{ asset('js/lib/alert.js') }}"></script>    
+    
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
@@ -80,8 +81,10 @@
                 </div>
             </div>
         </nav>
-
-        @yield('content')
+        <div class="container">
+            <div id="notifications"></div>
+            @yield('content')
+        </div>
     </div>
 
     <!-- Scripts -->
